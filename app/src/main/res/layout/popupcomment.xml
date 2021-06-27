@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/commenpopup"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray_700">
+
+    <EditText
+        android:id="@+id/commentEditTextPopUp"
+        android:layout_width="380dp"
+        android:layout_height="61dp"
+        android:background="@drawable/my_border"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Write your comment here."
+        android:text=""
+        android:textSize="24dp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="96dp" />
+
+    <Button
+        android:id="@+id/buttonComment"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:backgroundTint="@color/orange_700"
+        android:text="Comment"
+        app:backgroundTint="@color/orange_700"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.547"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commentEditTextPopUp"
+        app:layout_constraintVertical_bias="0.067" />
+
+    <Button
+        android:id="@+id/commentCloseButton"
+        android:layout_width="52dp"
+        android:layout_height="50dp"
+        android:background="@drawable/window_close"
+        android:textColor="@color/orange_700"
+        android:textColorHighlight="@color/orange_700"
+        android:textColorHint="@color/orange_700"
+        android:textColorLink="@color/orange_700"
+        app:backgroundTint="@color/orange_700"
+        tools:layout_editor_absoluteX="356dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

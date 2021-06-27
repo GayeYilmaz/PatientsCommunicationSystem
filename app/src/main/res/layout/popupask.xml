@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/askpopup"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_700">
+
+    <EditText
+        android:id="@+id/questionEditTextPopUp"
+        android:layout_width="380dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="96dp"
+        android:background="@drawable/my_border"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Ask question"
+        android:text=""
+        android:textSize="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.609"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonAsk"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:backgroundTint="@color/orange_700"
+        android:text="Ask"
+        app:backgroundTint="@color/orange_700"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questionEditTextPopUp"
+        app:layout_constraintVertical_bias="0.058" />
+
+    <Button
+        android:id="@+id/buttonClose"
+        android:layout_width="52dp"
+        android:layout_height="50dp"
+        android:background="@drawable/window_close"
+        android:textColor="@color/orange_700"
+        android:textColorHighlight="@color/orange_700"
+        android:textColorHint="@color/orange_700"
+        android:textColorLink="@color/orange_700"
+        app:backgroundTint="@color/orange_700"
+        app:layout_constraintBottom_toTopOf="@+id/questionEditTextPopUp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.991"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.08" />
+</androidx.constraintlayout.widget.ConstraintLayout>
