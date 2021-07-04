@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -53,11 +52,11 @@ public class Setting extends AppCompatActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch(menuItem.getItemId()){
             case R.id.nav_home:
-                Intent i = new Intent(Setting.this,X.class);
+                Intent i = new Intent(Setting.this, X.class);
                 startActivity(i);
                 break;
             case R.id.nav_message:
-                Intent i1 = new Intent(Setting.this,Message.class);
+                Intent i1 = new Intent(Setting.this, Message.class);
                 startActivity(i1);
 
                 break;
@@ -65,12 +64,10 @@ public class Setting extends AppCompatActivity implements NavigationView.OnNavig
 
                 break;
             case R.id.nav_profile:
-                Intent i2 = new Intent(Setting.this,Profile.class);
+                Intent i2 = new Intent(Setting.this, Profile.class);
                 startActivity(i2);
                 break;
-            case R.id.nav_share:
-                Toast.makeText(this,"Share",Toast.LENGTH_LONG).show();
-                break;
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

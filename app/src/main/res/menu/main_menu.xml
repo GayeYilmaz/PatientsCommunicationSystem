@@ -21,10 +21,7 @@
 
             android:title="Profile">
             <menu>
-                <item
-                    android:id="@+id/nav_login"
-                    android:icon="@drawable/login"
-                    android:title="Login" />
+
                 <item
                     android:id="@+id/nav_logout"
                     android:icon="@drawable/logout"
@@ -39,20 +36,6 @@
         </item>
 
     </group>
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_rate"
-                android:icon="@drawable/star"
-                android:title="Rate" />
-
-        </menu>
-
-    </item>
 
 
 </menu>

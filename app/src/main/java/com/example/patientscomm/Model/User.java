@@ -1,4 +1,4 @@
-package com.example.patientscomm;
+package com.example.patientscomm.Model;
 
 public class User{
    private String id;
@@ -10,11 +10,12 @@ public class User{
    private String password;
    private String email;
    private String gender;
+   private String imageURL;
 
     public User() {
     }
 
-    public User(String id,String name, String surname, String doctor, String hospital, String disease, String password, String email, String gender) {
+    public User(String id,String name, String surname, String doctor, String hospital, String disease, String password, String email, String gender,String imageURL) {
         this.id=id;
         this.name = name;
         this.surname = surname;
@@ -24,6 +25,14 @@ public class User{
         this.password = password;
         this.email = email;
         this.gender = gender;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getId() {

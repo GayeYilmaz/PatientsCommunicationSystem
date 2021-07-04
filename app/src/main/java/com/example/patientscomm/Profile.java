@@ -7,21 +7,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
+
+import com.example.patientscomm.Fragments.ProfileFragment;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 
 public class Profile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawerLayout;
@@ -56,36 +55,20 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
-        profileName=findViewById(R.id.profileName);
-        profileSurname=findViewById(R.id.profileSurname);
-        profileGender=findViewById(R.id.profileGender);
-        profileDisease=findViewById(R.id.profileDisease);
-        profileDoctor=findViewById(R.id.profileDoctor);
-        profileHospital=findViewById(R.id.profileHospital);
-        profileEmail=findViewById(R.id.profileEmail);
-        profilePassword=findViewById(R.id.profilePassword);
+        TabLayout tabLayout = findViewById(R.id.profile_tab_layout);
+        ViewPager viewPager = findViewById(R.id.profile_view_pager);
+
+        Message.ViewPagerAdapter viewPagerAdapter = new Message.ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(new ProfileFragment(),"Profile");
+
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
 
 
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        databaseProfile = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
-        databaseProfile.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                profileName.setText(snapshot.child("name").getValue().toString());
-                profileSurname.setText(snapshot.child("surname").getValue().toString());
-                profileGender.setText(snapshot.child("gender").getValue().toString());
-                profileDisease.setText(snapshot.child("disease").getValue().toString());
-                profileDoctor.setText(snapshot.child("doctor").getValue().toString());
-                profileHospital.setText(snapshot.child("hospital").getValue().toString());
-                profileEmail.setText(snapshot.child("email").getValue().toString());
-                profilePassword.setText(snapshot.child("password").getValue().toString());
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+
+
 
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -104,24 +87,22 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch(menuItem.getItemId()){
             case R.id.nav_home:
-                Intent i = new Intent(Profile.this,X.class);
+                Intent i = new Intent(Profile.this, X.class);
                 startActivity(i);
                 break;
             case R.id.nav_message:
-                Intent i2 = new Intent(Profile.this,Message.class);
+                Intent i2 = new Intent(Profile.this, Message.class);
                 startActivity(i2);
 
                 break;
             case R.id.nav_setting:
-                Intent i1 = new Intent(Profile.this,Setting.class);
+                Intent i1 = new Intent(Profile.this, Setting.class);
                 startActivity(i1);
                 break;
             case R.id.nav_profile:
 
                 break;
-            case R.id.nav_share:
-                Toast.makeText(this,"Share",Toast.LENGTH_LONG).show();
-                break;
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
