@@ -18,6 +18,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.patientscomm.Adapter.CommentAdapter;
+import com.example.patientscomm.Model.Comment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -212,9 +214,7 @@ public class CommentPage extends AppCompatActivity implements NavigationView.OnN
                 Intent i2 = new Intent(CommentPage.this, Profile.class);
                 startActivity(i2);
                 break;
-            case R.id.nav_share:
 
-                break;
             case R.id.nav_logout:
                 logout();
                 break;

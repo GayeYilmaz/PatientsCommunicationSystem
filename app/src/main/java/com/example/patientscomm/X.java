@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.example.patientscomm.Adapter.QuestionAdapter;
+import com.example.patientscomm.Model.Question;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -50,10 +52,10 @@ public class X extends AppCompatActivity implements NavigationView.OnNavigationI
     private Button question_popup_buttonClose;
 
     private RecyclerView recyclerViewQuestion;
-    private Adapter adapter;
+    private QuestionAdapter adapter;
     DatabaseReference databaseQuestion;
     private ArrayList<Question> list;
-    private Adapter.ItemClickListener mItemListener;
+    private QuestionAdapter.ItemClickListener mItemListener;
     private TextView questionTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +83,7 @@ public class X extends AppCompatActivity implements NavigationView.OnNavigationI
         databaseQuestion = FirebaseDatabase.getInstance().getReference("questions");
         recyclerViewQuestion = findViewById(R.id.questionResult);
 
-
-
-
-
-
-        }
+    }
 
 
 
@@ -95,17 +92,17 @@ public class X extends AppCompatActivity implements NavigationView.OnNavigationI
         super.onResume();
         recyclerViewQuestion.setAdapter(adapter);
     }
-    private void setAdapter(){
+    private void setAdapter(ArrayList<Question> list){
         setOnCliclListener();
-        Adapter adapter = new Adapter(list,mItemListener);
+        QuestionAdapter adapter = new QuestionAdapter(list,mItemListener);
         recyclerViewQuestion.setAdapter(adapter);
     }
 
     private void setOnCliclListener() {
-        mItemListener = new Adapter.ItemClickListener() {
+        mItemListener = new QuestionAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                Intent intent = new Intent(getApplicationContext(),CommentPage.class);
+                Intent intent = new Intent(getApplicationContext(), CommentPage.class);
                 intent.putExtra("question",list.get(position).getQuestion());
                 intent.putExtra("questionId",list.get(position).getId());
                 startActivity(intent);
@@ -128,10 +125,12 @@ public class X extends AppCompatActivity implements NavigationView.OnNavigationI
                             list.add(ds.getValue(Question.class));
 
                         }
-                        setOnCliclListener();
-                        Adapter adapter = new Adapter(list,mItemListener);
+
+                        QuestionAdapter adapter = new QuestionAdapter(list);
                         recyclerViewQuestion.setAdapter(adapter);
-                        //recyclerViewQuestion.setAdapter(adapter);
+                        //setOnCliclListener();
+                       // recyclerViewQuestion.setAdapter(adapter);
+                        setAdapter(list);
 
 
                     }
@@ -170,9 +169,14 @@ public class X extends AppCompatActivity implements NavigationView.OnNavigationI
                 myList.add(object);
             }
         }
-        Adapter adapter = new Adapter(myList);
+
+
+        QuestionAdapter adapter = new QuestionAdapter(myList);
         recyclerViewQuestion.setAdapter(adapter);
-        //setAdapter();
+        setAdapter(myList);
+
+
+       // setAdapter();
     }
 
     @Override
@@ -203,9 +207,7 @@ public class X extends AppCompatActivity implements NavigationView.OnNavigationI
                 Intent i2 = new Intent(X.this, Profile.class);
                 startActivity(i2);
                 break;
-            case R.id.nav_share:
 
-                break;
             case R.id.nav_logout:
                 logout();
                 break;
@@ -218,6 +220,7 @@ public class X extends AppCompatActivity implements NavigationView.OnNavigationI
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
+
     }
 
     public void ask() {

@@ -1,4 +1,4 @@
-package com.example.patientscomm;
+package com.example.patientscomm.Model;
 
 public class Comment {
     private String id;

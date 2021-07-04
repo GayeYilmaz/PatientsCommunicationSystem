@@ -1,4 +1,4 @@
-package com.example.patientscomm;
+package com.example.patientscomm.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,21 +8,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.ValueEventListener;
+import com.example.patientscomm.Model.Question;
+import com.example.patientscomm.R;
 
 import java.util.ArrayList;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
+public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyViewHolder> {
     ArrayList<Question> list;
 
     private ItemClickListener mItemListener;
 
-    public Adapter(ArrayList<Question> list, ItemClickListener itemClickListener) {
+    public QuestionAdapter(ArrayList<Question> list, ItemClickListener itemClickListener) {
         this.list = list;
         this.mItemListener = itemClickListener;
     }
 
-    public Adapter(ArrayList<Question> list) {
+    public QuestionAdapter(ArrayList<Question> list) {
         this.list = list;
     }
 
