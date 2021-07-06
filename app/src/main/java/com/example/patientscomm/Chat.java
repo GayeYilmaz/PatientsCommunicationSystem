@@ -11,20 +11,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.patientscomm.Adapter.MessageAdapter;
-import com.example.patientscomm.Fragments.APIService;
 import com.example.patientscomm.Model.ChatMessage;
 import com.example.patientscomm.Model.User;
-import com.example.patientscomm.Notifications.Client;
-import com.example.patientscomm.Notifications.Data;
-import com.example.patientscomm.Notifications.MyResponse;
-import com.example.patientscomm.Notifications.Sender;
-import com.example.patientscomm.Notifications.Token;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -61,7 +55,7 @@ public class Chat extends AppCompatActivity {
       String userId;
      ValueEventListener seenListener;
 
-     APIService apiService;
+
 
      boolean notify = false;
 
@@ -87,7 +81,7 @@ public class Chat extends AppCompatActivity {
             }
         });
 
-        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+
 
         profile_image = findViewById(R.id.chat_toolbar_profile_image2);
         name = findViewById(R.id.chat_toolbar_name);
@@ -186,61 +180,10 @@ public class Chat extends AppCompatActivity {
 
             }
         });
-        final String msg = message;
-        reference = FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
-                if(notify){
-                   sendNotification(receiver,user.getName(),user.getSurname(),msg);
-                }
-                notify = false;
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
     }
-    private  void sendNotification(String receiver,String name,String surname,String message){
-        DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("tokens");
-        Query query = tokens.orderByKey().equalTo(receiver);
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot snapshot1 :snapshot.getChildren()){
-                    Token token = snapshot1.getValue(Token.class);
-                    Data data = new Data(fuser.getUid(),R.mipmap.ic_launcher,name+" "+surname+": "+message,"New Message",userId);
-                    Sender sender = new Sender(data,token.getToken());
-                    apiService.sendNotification(sender)
-                            .enqueue(new Callback<MyResponse>() {
-                                @Override
-                                public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
-                                    if(response.code() == 200){
-                                        if(response.body().success != 1){
-                                            Toast.makeText(Chat.this,"Failed!",Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                }
 
-                                @Override
-                                public void onFailure(Call<MyResponse> call, Throwable t) {
-
-                                }
-                            });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
     private void readMessages(String myId,String userId,String imageurl){
         mChatMessage = new ArrayList<>();
         messageReference = FirebaseDatabase.getInstance().getReference("chats");

@@ -20,12 +20,17 @@ import android.view.MenuItem;
 
 import com.example.patientscomm.Fragments.ChatsFragment;
 import com.example.patientscomm.Fragments.UsersFragment;
+import com.example.patientscomm.Model.ChatMessage;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,16 +60,41 @@ public class Message extends AppCompatActivity implements NavigationView.OnNavig
         navigationView.setCheckedItem(R.id.nav_home);
 
 
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-        ViewPager viewPager = findViewById(R.id.view_pager);
+        final TabLayout tabLayout = findViewById(R.id.tab_layout);
+        final ViewPager viewPager = findViewById(R.id.view_pager);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        viewPagerAdapter.addFragment(new ChatsFragment(),"Chats");
-        viewPagerAdapter.addFragment(new UsersFragment(),"Users");
-        viewPager.setAdapter(viewPagerAdapter);
 
-        tabLayout.setupWithViewPager(viewPager);
+        reference = FirebaseDatabase.getInstance().getReference("chats");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+                int unread=0;
+                for(DataSnapshot snapshot1:snapshot.getChildren()){
+                    ChatMessage chatMessage = snapshot1.getValue(ChatMessage.class);
+                    if(chatMessage.getReceiver().equals(firebaseUser.getUid()) && !chatMessage.isIsseen()){
+                        unread++;
+                    }
+                }
+                if(unread == 0){
+                    viewPagerAdapter.addFragment(new ChatsFragment(),"Chats");
+                }else{
+                    viewPagerAdapter.addFragment(new ChatsFragment(),"("+unread+") Chats");
+                }
+                viewPagerAdapter.addFragment(new UsersFragment(),"Users");
+                viewPager.setAdapter(viewPagerAdapter);
+                tabLayout.setupWithViewPager(viewPager);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
 
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

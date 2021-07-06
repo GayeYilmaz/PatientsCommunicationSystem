@@ -7,16 +7,22 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.patientscomm.Adapter.UserAdapter;
+import com.example.patientscomm.Chat;
 import com.example.patientscomm.Model.ChatMessage;
 import com.example.patientscomm.Model.Chatlist;
 import com.example.patientscomm.Model.User;
-import com.example.patientscomm.Notifications.Token;
+
 import com.example.patientscomm.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +35,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 
 public class ChatsFragment extends Fragment {
@@ -72,16 +80,11 @@ public class ChatsFragment extends Fragment {
 
             }
         });
-        updateToken(FirebaseMessaging.getInstance().getToken().toString());
-       // updateToken(FirebaseInstanceId.getInstance().getToken());
+
 
         return view;
     }
-    private void updateToken(String token){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("tokens");
-        Token token1 = new Token(token);
-        reference.child(fuser.getUid()).setValue(token1);
-    }
+
     private void chatList() {
         mUsers = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference("users");
