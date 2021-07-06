@@ -240,6 +240,7 @@ public class X extends AppCompatActivity implements NavigationView.OnNavigationI
             @Override
             public void onClick(View v) {
                 saveQuestion();
+                dialog.dismiss();
             }
         });
 

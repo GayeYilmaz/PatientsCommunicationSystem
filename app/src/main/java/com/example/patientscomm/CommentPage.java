@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.patientscomm.Adapter.CommentAdapter;
 import com.example.patientscomm.Model.Comment;
+import com.example.patientscomm.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -101,10 +102,14 @@ public class CommentPage extends AppCompatActivity implements NavigationView.OnN
     @Override
     protected void onStart() {
         super.onStart();
+
+
         if(databaseComment != null){
             databaseComment.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User user =snapshot.getValue(User.class);
+
                     if(snapshot.exists()){
                         list=new ArrayList<>();
                         for(DataSnapshot ds: snapshot.getChildren()){
@@ -114,7 +119,9 @@ public class CommentPage extends AppCompatActivity implements NavigationView.OnN
 
 
                         }
-                        setAdapter();
+
+
+                        setAdapter(user.getImageURL());
 
                     }
                 }
@@ -127,9 +134,9 @@ public class CommentPage extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
-    private void setAdapter() {
+    private void setAdapter(String imageurl) {
         setOnClickListener();
-        CommentAdapter commentAdapter = new CommentAdapter(list,commentClickListener);
+        CommentAdapter commentAdapter = new CommentAdapter(list,commentClickListener,CommentPage.this);
         commentRecyclerView.setAdapter(commentAdapter);
     }
 

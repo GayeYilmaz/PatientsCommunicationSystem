@@ -5,14 +5,25 @@
     android:id="@+id/commentLayout"
     android:layout_width="match_parent"
     android:layout_height="215dp"
-    android:background="@drawable/my_border"
     android:layout_gravity="center"
-    android:backgroundTint="@color/orange_700">
+    android:background="@drawable/my_border"
+    android:backgroundTint="@color/gray_700"
+    android:layout_marginBottom="15dp">
 
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/commetLayoutImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/commentLayoutComment"
+        app:layout_constraintEnd_toStartOf="@+id/commentLayoutName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@mipmap/ic_launcher"/>
 
     <TextView
         android:id="@+id/commentLayoutName"
-        android:layout_width="400dp"
+        android:layout_width="300dp"
         android:layout_height="51dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
@@ -33,12 +44,12 @@
     <TextView
         android:id="@+id/commentLayoutComment"
         android:layout_width="400dp"
-        android:paddingTop="6dp"
-        android:paddingLeft="10dp"
         android:layout_height="143dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/my_border"
         android:backgroundTint="@color/gray_800"
+        android:paddingLeft="10dp"
+        android:paddingTop="6dp"
         android:text="TextView"
         android:textColor="@color/white"
         android:textSize="20dp"

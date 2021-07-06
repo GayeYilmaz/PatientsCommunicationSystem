@@ -29,12 +29,7 @@
                 android:indeterminate="true"
                 android:visibility="invisible"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile"
-                android:textColor="@color/orange_700"
-                android:textStyle="bold" />
+
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
@@ -49,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profile_image"
-                android:layout_marginLeft="150dp"
+                android:layout_marginLeft="135dp"
                 android:layout_marginTop="15dp"
                 android:text="Name"
                 android:textColor="@color/orange_700"
