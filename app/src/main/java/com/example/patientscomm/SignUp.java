@@ -102,6 +102,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         String doctor = editTextDoctor.getText().toString().trim();
         String disease= editTextDisease.getText().toString().trim();
         String imageURL="dafault";
+        String status = "online";
         if(name.isEmpty()){
             editTextName.setError("Name is required!");
             editTextName.requestFocus();
@@ -147,7 +148,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
                             String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                     //databaseUser.push().getKey();
-                            User user = new User(id,name,surname,doctor,hospital,disease,password,email,stringGender,imageURL);
+                            String search = name.toLowerCase();
+                            User user = new User(id,name,surname,doctor,hospital,disease,password,email,stringGender,imageURL,status,search);
                             databaseUser.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

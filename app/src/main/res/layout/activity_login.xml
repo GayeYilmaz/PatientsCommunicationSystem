@@ -26,7 +26,6 @@
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/my_border"
-
         android:paddingLeft="10dp"
         android:hint="Enter your email."
         android:inputType="textPersonName"
